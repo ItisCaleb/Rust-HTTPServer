@@ -66,7 +66,7 @@ fn handle_request(mut stream: &TcpStream)-> Result<(Request,Response),Response>{
     //first we read first line and headers
     loop{
         buf_reader.read_line(&mut buf).unwrap();
-        if &buf[buf.len()-4..] == "\r\n\r\n"{
+        if buf.len()>4 && &buf[buf.len()-4..] == "\r\n\r\n"{
             break;
         }
     }
@@ -117,7 +117,7 @@ fn send_response(mut stream: &TcpStream, res: &mut Response,send_body:bool){
 }
 
 fn error_response(res: &mut Response, err: HttpError){
-    res.add_header("Connection", "close")
+    res.set_header("Connection", "close")
         .status(err.status)
         .send(&err.message);
 }

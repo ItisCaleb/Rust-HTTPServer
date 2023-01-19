@@ -10,3 +10,4 @@ strum = "0.24"
 strum_macros = "0.24"
 chrono = "0.4.23"
 hex = "0.4.3"
+phf = { version = "0.7.24", features = ["macros"] }
